@@ -19,3 +19,13 @@ for num in lista:
 print(major)
 
 ###
+
+phrase = " hello world "
+phrase2 = phrase.strip()
+print(phrase2)
+
+text = "**python**"
+text2 = text.strip("*")
+print(text2)
+
+###
