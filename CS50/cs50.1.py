@@ -26,7 +26,56 @@ print(f"she is {first}")
 
 ###
 
-# Working with int
+# Working with int and float
 x = int(input("name x: "))
 y = int(input("name y: "))
-print(x + y)
+z = x + y
+print(f"{z:,}")  # adds a comma to differentiate numbers starting from 1000
+
+a = float(input("name a: "))
+b = float(input("name b: "))
+c = a + b
+print(f"{c:.2f}")  # another way to round by using the f-string
+
+###
+
+# Working with functions
+
+
+def hello(to="world"):
+    print("hello,", to)
+
+
+hello()
+name = input("name: ")
+hello(name)
+
+
+###
+
+
+def main1():
+    name = input("name: ")
+    bye(name)
+
+
+def bye(name):
+    print("bye,", name)
+
+
+main1()
+
+
+###
+
+
+def main2():
+    x = int(input("x: "))
+    print("x squared is", square(x))
+
+
+def square(n):
+    return pow(n, 2)
+
+
+main2()
