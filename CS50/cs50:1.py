@@ -79,3 +79,64 @@ def square(n):
 
 
 main2()
+
+###
+
+# Problem 0 Homework
+# indoor
+string = input()
+print(string.lower())
+
+# playback
+string = input()
+newchar = "..."
+newstr = string.replace(" ", newchar)
+print(newstr)
+
+# faces
+
+
+def main():
+    strings = convert(input("insert your text: "))
+    print(strings)
+    return
+
+
+def convert(text):
+    replace1 = text.replace(":)", "🙂")
+    replace2 = replace1.replace(":(", "🙁")
+    return replace2
+
+
+main()
+
+# Einstein
+m = int(input("insert the value of m: "))
+c = pow(300000000, 2)
+E = m * c
+print(E)
+
+# tip calculator
+
+
+def main():
+    dollars = dollars_to_float(input("How much was the meal? "))
+    percent = percent_to_float(
+        input("What percentage would you like to tip? "))
+    tip = dollars * percent
+    print(f"Leave ${tip:.2f}")
+    return
+
+
+def dollars_to_float(d):
+    newd = d.replace("$", "")
+    return float(newd)
+
+
+def percent_to_float(p):
+    newp1 = p.replace("%", "")
+    newp2 = int(newp1) / 100
+    return float(newp2)
+
+
+main()
