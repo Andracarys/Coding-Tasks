@@ -299,3 +299,199 @@ if input in fruits:
     print(f"Calories: {fruits[key]} ")
 else:
     print("")
+
+
+# Dictionaries
+
+
+def main():
+    spacecraft = {"name": "James Webb Space Telescope"}
+    spacecraft.update({"distance": 0.01, "orbit": "Sun"})
+    print(create_report(spacecraft))
+
+
+def create_report(spacecraft):
+    return f"""
+    ========= REPORT =========
+
+    Name: {spacecraft.get("name", "Unknown")}
+    Distance: {spacecraft.get("distance", "Unknown")} AU
+    Orbit: {spacecraft.get("orbit", "Unknown")}
+
+    ==========================
+    """
+
+
+main()
+
+###
+
+distances = {
+    "Voyager 1": 163,
+    "Voyager 2": 136,
+    "Pioneer 10": 80,
+    "New Horizons": 58,
+    "Pioneer 11": 44,
+}
+
+
+def main():
+    for name in distances.keys():
+        print(f"{name} is {distances[name]} AU from Earth")
+
+
+main()
+
+###
+
+distances = {
+    "Voyager 1": 163,
+    "Voyager 2": 136,
+    "Pioneer 10": 80,
+    "New Horizons": 58,
+    "Pioneer 11": 44,
+}
+
+
+def main():
+    for distance in distances.values():
+        print(f"{distance} AU is {convert(distance)} m")
+
+
+def convert(au):
+    return au * 149597870700
+
+
+main()
+
+
+# Dictionary Methods
+
+WORDS = {"PAIR": 4, "HAIR": 4, "CHAIR": 5, "GRAPHIC": 7}
+
+
+def main():
+    print("Welcome to Spelling Bee!")
+    print("Your letters are: A I P C R H G")
+
+    while len(WORDS) > 0:
+        print(f"{len(WORDS)} left!")
+        guess = input("Guess a word: ")
+
+        if guess == "GRAPHIC":
+            WORDS.clear()
+            print("You've won!")
+
+        elif guess in WORDS.keys():
+            points = WORDS.pop(guess)
+            # points = WORDS[guess]
+            print(f"Good job! You scored {points} points.")
+
+    print("That's the game!")
+
+
+main()
+
+###
+
+WORDS = {"PAIR": 4, "HAIR": 4, "CHAIR": 5, "GRAPHIC": 7}
+
+
+def main():
+    print("Welcome to Spelling Bee!")
+    print("Here are yesterday's answers:")
+
+    for word, points in WORDS.items():
+        print(f"{word} was worth {points} points.")
+
+
+main()
+
+
+# For Loops
+
+def main():
+    names = ["Mario", "Luigi", "Daisy", "Yoshi"]
+    for i in range(len(names)):
+        print(write_letter(names[i], "Princess Peach"))
+
+
+def write_letter(receiver, sender):
+    return f"""
+    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+       Dear {receiver},
+    
+       You are cordially invited to a ball at
+       Peach's Castle this evening, 7:00 PM.
+
+       Sincerely,
+       {sender}
+    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ 
+    """
+
+
+main()
+
+###
+
+
+def main():
+    names = ["Mario", "Luigi", "Daisy", "Yoshi"]
+    for name in names:
+        print(write_letter(name, "Princess Peach"))
+
+
+def write_letter(receiver, sender):
+    return f"""
+    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+
+       Dear {receiver},
+    
+       You are cordially invited to a ball at
+       Peach's Castle this evening, 7:00 PM.
+
+       Sincerely,
+       {sender}
+    +~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~+ 
+    """
+
+
+main()
+
+
+# Lists
+
+results = ["Mario", "Luigi"]
+
+results.append("Princess")
+results.append("Yoshi")
+results.append("Koopa Troopa")
+results.append("Toad")
+
+print(results)
+
+results.append(["Bowser", "Donkey Kong Jr."])
+results.remove(["Bowser", "Donkey Kong Jr."])
+results.extend(["Bowser", "Donkey Kong Jr."])
+
+print(results)
+
+results.remove("Bowser")
+
+print(results)
+
+results.insert(0, "Bowser")
+
+print(results)
+
+print(results.index("Mario"))
+
+results.reverse()
+
+print(results)
+
+# List and Dictionary Comprehensions
+# See full code on the video or source code pdf
+
+lowercase_words = [word.lower() for word in words if len(word) > 4]
+
+counts = {word: lowercase_words.count(word) for word in lowercase_words}
