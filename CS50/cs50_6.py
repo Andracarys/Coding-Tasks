@@ -450,3 +450,194 @@ main()
 
 # ImageFilter.FIND_EDGES  # a predefined filter that finds edges in the image
 # img = img.filter(ImageFilter.FIND_EDGES)  # applies the find edges filter to the image
+
+# Reading and Writing CSV Files with the csv Module
+
+# import csv
+# import numpy as np
+# from PIL import Image
+
+
+def main():
+    with open("views.csv", "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            print(row)
+
+
+def calculate_brightness(filename):
+    with Image.open(filename) as image:
+        brightness = np.mean(np.array(image.convert("L"))) / 255
+    return brightness
+
+
+main()
+
+# csv.DictReader(file)  # creates a DictReader object that maps information in each row to a dict
+# row["key"]  # accesses the value associated with the key in the row dictionary
+# Image.convert("L")  # converts the image to grayscale
+# np.array(image)  # converts the image to a NumPy array
+# np.mean(array)  # calculates the mean of the array elements
+# brightness = np.mean(np.array(image.convert("L"))) / 255  # calculates normalized brightness
+
+# To run this script, ensure you have the required CSV file and image files in the same directory.
+# The script reads the CSV file and prints each row as a dictionary.
+# It also defines a function to calculate the brightness of an image using the Pillow and NumPy libraries.
+# Make sure to have the Pillow and NumPy libraries installed to run this script.
+# You can install them using pip:
+# pip install Pillow numpy
+# Note: The calculate_brightness function is defined but not called in this script.
+
+# import csv
+# import numpy as np
+# from PIL import Image
+
+
+def main():
+    with open("views.csv", "r") as file:
+        reader = csv.DictReader(file)
+        for row in reader:
+            brightness = calculate_brightness(f"{row['id']}.jpeg")
+            print(round(brightness, 2))
+
+
+def calculate_brightness(filename):
+    with Image.open(filename) as image:
+        brightness = np.mean(np.array(image.convert("L"))) / 255
+    return brightness
+
+
+main()
+
+# round(value, 2)  # rounds the value to 2 decimal places
+# brightness = calculate_brightness(f"{row['id']}.jpeg")  # calculates brightness for the image with the given id
+# f"{row['id']}.jpeg"  # constructs the filename using the id from the CSV row
+# The script reads the CSV file, calculates the brightness of each image based on the id in the CSV,
+# and prints the rounded brightness value for each image.
+# Note: The image files should be named according to the ids in the CSV file (e.g., 1.jpeg, 2.jpeg, etc.).
+
+# import csv
+# import numpy as np
+# from PIL import Image
+
+
+def main():
+    with open("views.csv", "r") as views, open("analysis.csv", "w") as analysis:
+        reader = csv.DictReader(views)
+        writer = csv.DictWriter(
+            analysis, fieldnames=reader.fieldnames + ["brightness"])
+        writer.writeheader()  # write header to analysis.csv
+
+        for row in reader:
+            brightness = calculate_brightness(f"{row['id']}.jpeg")
+            print(round(brightness, 2))
+
+
+def calculate_brightness(filename):
+    with Image.open(filename) as image:
+        brightness = np.mean(np.array(image.convert("L"))) / 255
+    return brightness
+
+
+main()
+
+# csv.DictWriter(file, fieldnames=keys)  # creates a DictWriter object that writes to the CSV file
+# writer.writeheader()  # writes the header row to the CSV file using the fieldnames
+# fieldnames=reader.fieldnames + ["brightness"]  # adds "brightness" to the existing fieldnames from the reader
+# The script reads the views.csv file, calculates the brightness of each image based on the id in the CSV,
+# and writes the results to a new analysis.csv file with an additional "brightness" column.
+# Note: The image files should be named according to the ids in the CSV file (e.g., 1.jpeg, 2.jpeg, etc.).
+
+# import csv
+# import numpy as np
+# from PIL import Image
+
+
+def main():
+    with open("views.csv", "r") as views, open("analysis.csv", "w") as analysis:
+        reader = csv.DictReader(views)
+        writer = csv.DictWriter(
+            analysis, fieldnames=reader.fieldnames + ["brightness"])
+        writer.writeheader()
+
+        for row in reader:
+            brightness = calculate_brightness(f"{row['id']}.jpeg")
+            writer.writerow(
+                {
+                    "id": row["id"],
+                    "english_title": row["english_title"],
+                    "japanese_title": row["japanese_title"],
+                    "brightness": round(brightness, 2),
+                }
+            )
+
+
+def calculate_brightness(filename):
+    with Image.open(filename) as image:
+        brightness = np.mean(np.array(image.convert("L"))) / 255
+    return brightness
+
+
+main()
+
+# writer.writerow({"key1": value1, "key2": value2})  # writes a row to the CSV file using a dict
+# The script reads the views.csv file, calculates the brightness of each image based on the id in the CSV,
+# and writes the results to a new analysis.csv file with an additional "brightness" column.
+# Each row in analysis.csv contains the id, english_title, japanese_title, and brightness rounded to 2 decimal places.
+# Note: The image files should be named according to the ids in the CSV file (e.g., 1.jpeg, 2.jpeg, etc.).
+
+# import csv
+# import numpy as np
+# from PIL import Image
+
+
+def main():
+    with open("views.csv", "r") as views, open("analysis.csv", "w") as analysis:
+        reader = csv.DictReader(views)
+        writer = csv.DictWriter(
+            analysis, fieldnames=reader.fieldnames + ["brightness"])
+        writer.writeheader()
+
+        for row in reader:
+            row["brightness"] = round(
+                calculate_brightness(f"{row['id']}.jpeg"), 2)
+            writer.writerow(row)
+
+
+def calculate_brightness(filename):
+    with Image.open(filename) as image:
+        brightness = np.mean(np.array(image.convert("L"))) / 255
+    return brightness
+
+
+main()
+
+# row["brightness"] = round(calculate_brightness(f"{row['id']}.jpeg"), 2)  # adds brightness to the row dictionary
+# writer.writerow(row)  # writes the updated row dictionary to the CSV file
+
+# Reading and Writing files
+
+
+def main():
+    with open("alice.txt", "r") as f:
+        # contents = f.read() # reads the entire file as a single string
+        contents = f.readlines()
+
+    chapter1 = contents[52:272]
+    with open("chapter1.txt", "w") as f:
+        # f.write("Chapter I") # writes a single string to the file
+        f.writelines(chapter1)  # writes a list of strings to the file
+
+
+main()
+
+# readlines()  # reads all lines from the file and returns a list of lines
+# writelines(list_of_lines)  # writes a list of lines to the file
+# contents[52:272]  # slices the list to get lines from index 52 to 271 (272 is exclusive)
+# The script reads the contents of alice.txt, extracts lines corresponding to chapter 1,
+# and writes those lines to a new file named chapter1.txt.
+# Note: The line indices (52 to 272) are based on the specific structure of alice.txt
+# and may vary for different texts.
+# Make sure alice.txt is in the same directory as the script when running it.
+# To run this script, ensure you have the alice.txt file in the same directory.
+# The output will be a new file named chapter1.txt containing the extracted lines.
