@@ -2,8 +2,10 @@
 
 # Writes to a file
 
+import csv
 from PIL import Image
 import sys
+
 name = input("What's your name? ")
 
 file = open("names.txt", "w")
@@ -698,3 +700,79 @@ main()
 
 # Pizza Py
 # https://cs50.harvard.edu/python/psets/6/pizza/
+
+# import csv
+# import sys
+# from tabulate import tabulate
+
+if len(sys.argv) != 2 or not sys.argv[1].endswith(".csv"):
+    sys.exit("Needs exactly one command-line argument")
+
+file_path = sys.argv[1]
+
+try:
+    with open(file_path, "r") as file:
+        reader = csv.reader(file)
+        reader = list(reader)  # Convert reader object to list
+        if reader:
+            headers, rows = reader[0], reader[1:]  # Skips header row
+            print(tabulate(rows, headers=headers, tablefmt="grid"))
+
+except FileNotFoundError:
+    sys.exit("File does not exist")
+
+# csv.reader(file)  # creates a reader object that iterates over lines in the CSV file
+# list(reader)  # Convert reader object to list
+# headers, rows = reader[0], reader[1:]  # Skips header row
+# tabulate(rows, headers=headers, tablefmt="grid")  # formats the data into a table
+# tablefmt="grid"  # specifies the table format as grid
+
+# Scourgify
+# https://cs50.harvard.edu/python/psets/6/scourgify/#scourgify
+
+# “Ah, well,” said Tonks, slamming the trunk’s lid shut,
+# “at least it’s all in. That could do with a bit of cleaning, too.”
+# She pointed her wand at Hedwig’s cage. “Scourgify.” A few feathers and droppings vanished.
+# — Harry Potter and the Order of the Phoenix
+
+
+file_path = sys.argv[1]
+
+# Check for correct number of command-line arguments or invalid file path cannot be read
+if len(sys.argv) != 3:
+    sys.exit("Invalid command-line arguments")
+
+with open(file_path, "r") as before, open("after.csv", "w") as after:
+    reader = csv.DictReader(before)
+    writer = csv.DictWriter(after, fieldnames=["first", "last", "house"])
+    writer.writeheader()
+
+    if reader is None:
+        sys.exit("File cannot be read")
+
+    for row in reader:
+        # Remove surrounding quotes and split by comma
+        names = row["name"].split(",")
+        first = names[1].lstrip()
+        last = names[0]
+        house = row["house"]
+        # Write to new CSV file
+        writer.writerow(
+            {"first": first, "last": last, "house": house})
+
+# sys.argv[1]  # accesses the first command-line argument (input file path)
+# sys.argv[2]  # accesses the second command-line argument (output file path)
+# len(sys.argv)  # returns the number of command-line arguments
+# sys.exit(message)  # exits the program with the given message
+# csv.DictReader(file)  # creates a DictReader object that maps information in each row to a dict
+# csv.DictWriter(file, fieldnames=keys)  # creates a DictWriter object that writes to the CSV file
+# writer.writeheader()  # writes the header row to the CSV file using the fieldnames
+# row["name"]  # accesses the value associated with the "name" key in the row dictionary
+# names = row["name"].split(",")  # splits the name into last and first parts
+# first = names[1].lstrip()  # gets the first name and removes leading whitespace
+# last = names[0]  # gets the last name
+# house = row["house"]  # accesses the value associated with the "house" key in the row dictionary
+# writer.writerow({"first": first, "last": last, "house": house})  # writes the new row to the CSV file
+
+# CS50P Shirt
+# https://cs50.harvard.edu/python/psets/6/shirt/
