@@ -776,3 +776,43 @@ with open(file_path, "r") as before, open("after.csv", "w") as after:
 
 # CS50P Shirt
 # https://cs50.harvard.edu/python/psets/6/shirt/
+
+# import sys
+# import PIL.Image
+# import PIL.ImageOps
+
+try:
+    if not len(sys.argv) == 3:
+        print("Usage: python playground.py input_file output_file")
+        sys.exit()
+
+    if not sys.argv[1].lower().endswith(('.png', '.jpg', '.jpeg')) or not sys.argv[2].lower().endswith(('.png', '.jpg', '.jpeg')):
+        print("Both input and output files must be image files with .png, .jpg, or .jpeg extensions.")
+        sys.exit()
+
+    if sys.argv[1][-1:-4].lower() != sys.argv[2][-1:-4].lower():
+        print("Input and output files must have the same file extension.")
+        sys.exit()
+
+    if sys.argv[1].lower().endswith(None) or sys.argv[2].lower().endswith(None):
+        print("File extensions cannot be None.")
+        sys.exit()
+
+    if sys.argv[1] is None or sys.argv[2] is None:
+        print("Both input and output files must be provided.")
+        sys.exit()
+
+except FileNotFoundError:
+    print("One of the specified files was not found.")
+    sys.exit()
+
+
+input_file = sys.argv[1]  # CS50 t-shirt
+output_file = sys.argv[2]  # photo of a person
+
+with PIL.Image.open(input_file) as input_img, PIL.Image.open(output_file) as output_img:
+    width, height = input_img.size
+    fitted = PIL.ImageOps.fit(output_img, size=(width, height))
+    fitted.paste(input_img, (0, 0), input_img)
+    fitted.save("merged_image.png")
+    print("Image saved as merged_image.png")
