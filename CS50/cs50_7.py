@@ -316,3 +316,64 @@ main()
 # uses to communicate on the internet, akin to a postal address in the real world,
 # typically formatted in dot-decimal notation as #.#.#.#
 # But each # should be a number between 0 and 255, inclusive.
+
+# import re
+
+def main():
+    print(validate(input("IPv4 Address: ").strip()))
+
+
+def validate(ip):
+
+    # Pattern to match an IPv4 address format
+    pattern = r"([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})\.([0-9]{1,3})"
+    matches = re.search(pattern, ip)
+    group_status = []
+
+    if matches:
+        for group in matches.groups():
+            if int(group) > 255:
+                group_status.append(False)
+            else:
+                group_status.append(True)
+    else:
+        return False
+
+    if False in group_status:
+        return False
+    else:
+        return True
+
+
+if __name__ == "__main__":
+    main()
+
+
+# from playground import validate
+
+
+def main():
+    test_format()
+    test_range()
+
+
+def test_format():
+    assert validate("233.45.32") is False
+    assert validate("cats") is False
+    assert validate("...") is False
+    assert validate("155.199.100.2") is True
+    assert validate("233.45.32.244") is True
+
+
+def test_range():
+    assert validate("300.45.32.244") is False
+    assert validate("233.400.32.244") is False
+    assert validate("233.45.500.244") is False
+    assert validate("233.45.32.600") is False
+    assert validate("256.256.256.256") is False
+
+
+Errors: https: // submit.cs50.io/check50/d55a8d11be603dc937a49fa92c12d9feb33a1e4b
+
+
+#
