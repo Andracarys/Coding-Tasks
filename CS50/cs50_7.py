@@ -376,4 +376,29 @@ def test_range():
 Errors: https: // submit.cs50.io/check50/d55a8d11be603dc937a49fa92c12d9feb33a1e4b
 
 
-#
+# Watch 
+
+# import re
+
+def main():
+    print(parse(input("HTML: ").strip()))
+
+
+def parse(s):
+    pattern = r'(https?://(?:www\.)?youtube\.com/embed/)([a-zA-Z0-9]+)'
+    match = re.search(pattern, s, re.IGNORECASE)
+    if match:
+        return f"https://youtu.be/{match.group(2)}"
+    return None
+
+# Examples of inputs that should return a valid YouTube short link:
+#  http://youtube.com/embed/xvFZjo5PgG0
+#  https://youtube.com/embed/xvFZjo5PgG0
+#  https://www.youtube.com/embed/xvFZjo5PgG0
+
+
+if __name__ == "__main__":
+    main()
+
+# Errors: https://submit.cs50.io/check50/a9717938f118b3cf7e3066733a5f6851c49f166a
+
