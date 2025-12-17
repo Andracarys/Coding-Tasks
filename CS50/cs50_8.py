@@ -508,4 +508,74 @@ print(weasley)
 total = potter + weasley
 print(total)
 
+# Classes Short
+
+class Package:
+    def __init__(self, number, sender, recipient, weight):
+        self.number = number
+        self.sender = sender
+        self.recipient = recipient
+        self.weight = weight
+
+
+def main():
+    packages = [
+        Package(number=1, sender="Alice", recipient="Bob", weight=10),
+        Package(number=2, sender="Bob", recipient="Charlie", weight=5),
+    ]
+
+
+main()
+
+
+# Class Methods and Class Variables - CS50P Shorts
+
+1 class Food:
+2   base_hearts = 1
+3
+4 def __init__(self, ingredients):
+5   self.ingredients = ingredients
+6   self.hearts = Food.calculate_hearts(ingredients)
+7
+8 @classmethod
+9 def calculate_hearts(cls, ingredients):
+10  hearts = cls.base_hearts
+11  for ingredient in ingredients:
+12      if "hearty" in ingredient.lower():
+13          hearts += 2
+14      else:
+15          hearts += 1
+16  return hearts
+17
+18 @classmethod
+19 def from_nothing(cls, hearts):
+20  food = cls(ingredients=[])
+21  food.hearts = hearts
+22  return food
+23
+24
+25 def main():
+26  mushroom_skewer = Food(ingredients=["Mushroom", "Hearty Mushroom"])
+27  print(f"This Mushroom Skewer heals {mushroom_skewer.hearts} hearts! 💕")
+28
+29  Food.base_hearts = 2
+30  mushroom_skewer = Food(ingredients=["Mushroom", "Hearty Mushroom"])
+31  print(f"This Mushroom Skewer heals {mushroom_skewer.hearts} hearts! 💕")
+32
+33  mushroom_skewer = Food.from_nothing(hearts=2)
+34  print(f"This Mushroom Skewer heals {mushroom_skewer.hearts} hearts! 💕")
+35
+36
+37 main()
+
+# Instance Variables - CS50P Shorts
+# https://www.youtube.com/watch?v=qEYdRDvqmcQ
+
+# Instance Methods - CS50P Shorts
+# https://www.youtube.com/watch?v=klHr7F_xIig
+
+# https://cs50.harvard.edu/python/psets/8/
+# Problem 8 Homework
+
+# Seasons of Love
 
