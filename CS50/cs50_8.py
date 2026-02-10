@@ -576,15 +576,16 @@ main()
 
 # https://cs50.harvard.edu/python/psets/8/
 # Problem 8 Homework
-
+----------------------------------------------------------
 # Seasons of Love
 # https://cs50.harvard.edu/python/psets/8/seasons/
 
-from datetime import date
-import sys
-import inflect
+#from datetime import date
+#import sys
+#import inflect
 
 p = inflect.engine()
+
 
 class CalculateDate:
     def __init__(self, dob=None):
@@ -598,19 +599,33 @@ class CalculateDate:
             return self.dob
         except ValueError:
             sys.exit("Invalid date format. Please use YYYY-MM-DD.")
-        
-    def convertNumberToWords(self): 
+
+    def convertNumberToWords(self):
         days_lived = (self.today - self.dob).days
         minutes_lived = days_lived * 24 * 60
-        return p.number_to_words(minutes_lived) + " minutes"
+        minwords = p.number_to_words(minutes_lived, andword="") + " minutes"
+        minwords = minwords.capitalize()
+        return minwords
 
 
 def main():
-    calc = CalculateDate(None)     # or change __init__ to def __init__(self, dob=None):
-    calc.getDob()                  # prompts and sets calc.dob
+    calc = CalculateDate()  # or change __init__ to def __init__(self, dob=None):
+    calc.getDob()  # prompts and sets calc.dob
     minutes = calc.convertNumberToWords()
     print(minutes)
 
+
 if __name__ == "__main__":
     main()
+
+#from playground import CalculateDate
+#from datetime import date
+
+def test_calc():
+    valid_dob = CalculateDate(date(1990,4,21))
+    assert valid_dob.dob.year == 1990
+    assert valid_dob.dob.month == 4
+    assert valid_dob.dob.day == 21
+
+# run on terminal = pytest "name of the file"
 
